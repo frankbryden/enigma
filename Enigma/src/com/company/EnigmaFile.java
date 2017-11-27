@@ -5,15 +5,18 @@ import java.io.*;
 public class EnigmaFile {
 
     private static final String ENCODED_FILE_SUFFIX = "_encoded";
+    private static final int ASCII_A = 65;
+    private static final int ASCII_Z = 90;
 
-    File enigmaFile, enigmaFileOutput;
-    BufferedReader bufferedReader;
-    PrintWriter printWriter;
-    EnigmaMachine enigmaMachine;
-    StringBuilder outputBuilder;
-    //BasicRotor basicRotor1,basicRotor2, basicRotor3;
-    TurnoverRotor turnoverRotor1, turnoverRotor2, turnoverRotor3;
-    Reflector reflector1;
+    private File enigmaFile, enigmaFileOutput;
+    private BufferedReader bufferedReader;
+    private String enigmaFileContents;
+    private PrintWriter printWriter;
+    private EnigmaMachine enigmaMachine;
+    private StringBuilder outputBuilder;
+    private BasicRotor basicRotor1,basicRotor2, basicRotor3;
+    private TurnoverRotor turnoverRotor1, turnoverRotor2, turnoverRotor3;
+    private Reflector reflector1;
 
     public EnigmaFile(String path){
 
@@ -22,7 +25,7 @@ public class EnigmaFile {
         /* Input */
         this.enigmaFile = new File(path);
 
-        /* Create buffered reader object while handling IO exception */
+        /* Create buffered reader object and handle any IO exception */
         try {
             this.bufferedReader = new BufferedReader(new FileReader(enigmaFile));
         } catch (FileNotFoundException e) {
@@ -30,8 +33,18 @@ public class EnigmaFile {
             System.exit(-1);
         }
 
-        /* Output */
-        this.enigmaFileOutput = new File(path + ENCODED_FILE_SUFFIX);
+        /* Use helper method to clean file (upperCase, remove invalid characters and whitespace) */
+        this.enigmaFileContents = cleanFile(this.bufferedReader);
+
+        /* We don't need the bufferedReader anymore - close it so it can be garbage collected and the resource freed */
+        try {
+            this.bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        /* Objects used for output */
+        this.enigmaFileOutput = new File(getOutputPath(enigmaFile.getPath()));
         this.outputBuilder = new StringBuilder();
 
         /* Create print writer object while handling IO exception */
@@ -74,16 +87,49 @@ public class EnigmaFile {
 
     }
 
-    public void encode(){
+    public String cleanFile(BufferedReader reader){
+        /* Helper method to method to clean file (upperCase, remove invalid characters and whitespace) */
+        /* Takes in a bufferedReader to file and returns the cleaned string */
+
+        StringBuilder stringBuilder = new StringBuilder();
         try {
-            while (bufferedReader.ready()){
-                for (char letter : bufferedReader.readLine().toCharArray()){
-                    outputBuilder.append(enigmaMachine.encodeLetter(letter));
+            for (char letter : bufferedReader.readLine().toUpperCase().toCharArray()){
+                int asciiCode = (int) letter;
+                if (asciiCode >= ASCII_A && asciiCode <= ASCII_Z){
+                    stringBuilder.append(letter);
                 }
             }
-            bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        return stringBuilder.toString();
+    }
+
+    private String getOutputPath(String inputPath){
+        /*String Builder to hold the final output path */
+        StringBuilder outputPathBuilder = new StringBuilder();
+
+        /* Split inputPath to separate file name and extension */
+        Log.log("we have " + inputPath + "!");
+        String[] parts = inputPath.split("\\.");
+
+        /* Start off with file name */
+        outputPathBuilder.append(parts[0]);
+
+        /* Add a suffix to make it stand out from input file */
+        outputPathBuilder.append(ENCODED_FILE_SUFFIX);
+
+        /* Finish by adding the dot followed by the extension */
+        outputPathBuilder.append(".");
+        outputPathBuilder.append(parts[1]);
+
+        /* And we have our output file name */
+        return outputPathBuilder.toString();
+    }
+
+    public void encode(){
+        for (char letter : enigmaFileContents.toCharArray()){
+            outputBuilder.append(enigmaMachine.encodeLetter(letter));
         }
     }
 

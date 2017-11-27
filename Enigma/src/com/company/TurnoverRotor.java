@@ -1,8 +1,8 @@
 package com.company;
 
 public class TurnoverRotor extends BasicRotor {
-    int turnoverPosition;
-    BasicRotor nextRotor;
+    private int turnoverPosition;
+    private BasicRotor nextRotor;
     public TurnoverRotor(String type) {
         super(type);
         super.initialise(type);

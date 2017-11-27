@@ -1,9 +1,9 @@
 package com.company;
 
 public class EnigmaMachine {
-    Plugboard plugboard;
-    BasicRotor[] slots;
-    Reflector reflector;
+    private Plugboard plugboard;
+    private BasicRotor[] slots;
+    private Reflector reflector;
 
     public EnigmaMachine(){
         plugboard = new Plugboard();
@@ -40,20 +40,22 @@ public class EnigmaMachine {
         slots[slot].setPosition(position);
     }
 
-    public char encodeLetter(char letter){
+    public void encodeLetter(char letter){
         Log.log("1" + letter);
         letter = plugboard.substitute(letter);
 
+         /* Convert ascii code to 0-25 alphabet index */
         int index = ((int) letter) - 65;
-        //System.out.printf("Letter int %d, letter str %c%n", (int) letter, letter);
 
+         /* Pass the char through every rotor */
         index = getRotor(0).substitute(index);
-
         index = getRotor(1).substitute(index);
-        //                   System.out.println(index);
         index = getRotor(2).substitute(index);
-        //                  System.out.println(index);
+
+        /* then through the reflector */
         index = getReflector().substitute(index);
+
+        /* And back down the other way */
         index = getRotor(2).substituteBack(index);
         index = getRotor(1).substituteBack(index);
         index = getRotor(0).substituteBack(index);
@@ -64,11 +66,8 @@ public class EnigmaMachine {
         Log.log("3" + result);
 
         getRotor(0).rotate();
+
+        /* We display the resulting encoded char */
         System.out.print(result);
-        return result;
-    }
-
-    public void decodeLetter(char letter){
-
     }
 }

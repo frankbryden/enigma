@@ -37,27 +37,27 @@ public class BasicRotor extends Rotor {
             index += ROTORSIZE;
         }
 
-        //Use the new index to get mapping
+        /* Use the new index to get mapping */
         int mapped_char = mapping[index];
 
 
-        return (mapped_char + position) % ROTORSIZE;// + position;
+        return (mapped_char + position) % ROTORSIZE;
     }
 
     public int substituteBack(int index){
         int[] inverseMapping = new int[ROTORSIZE];
         for (int i = 0; i < ROTORSIZE; i++){
-            //Construct an inverse mapping by creating an array where the indices are the values of the mapping array, and the values are the indices of the mapping array
+            /* Construct an inverse mapping by creating an array where the indices are the values of the mapping array, and the values are the indices of the mapping array */
             inverseMapping[mapping[i]] = i;
         }
-        //Add the position to the index
-        //Bring it back to a 0-25 range in case it overlaps
+        /* Add the position to the index */
+        /* Bring it back to a 0-25 range in case it overlaps */
         index = (index - position + ROTORSIZE) % ROTORSIZE;
 
-        //Use the new index to get mapping
+        /* Use the new index to get mapping */
         int mapped_char = inverseMapping[index];
 
-        return (mapped_char + position) % ROTORSIZE;// + position;
+        return (mapped_char + position) % ROTORSIZE;
     }
 
     public void rotate(){

@@ -1,10 +1,10 @@
 package com.company;
 
 public abstract class Rotor {
-    final int ROTORSIZE = 26;
-    String name;
-    int position;
-    int[] mapping;
+    protected final int ROTORSIZE = 26;
+    protected String name;
+    protected int position;
+    protected int[] mapping;
 
     public void setPosition(int position){
         this.position = position;

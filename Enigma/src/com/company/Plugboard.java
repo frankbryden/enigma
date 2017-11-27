@@ -3,7 +3,7 @@ package com.company;
 import java.util.ArrayList;
 
 public class Plugboard {
-    ArrayList<Plug> plugs;
+    private ArrayList<Plug> plugs;
 
     public Plugboard(){
         plugs = new ArrayList<Plug>();

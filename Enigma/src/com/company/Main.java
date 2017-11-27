@@ -3,27 +3,29 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
-        start();
+	    start();
         EnigmaFile ef = new EnigmaFile("first.txt");
         ef.encode();
         ef.writeToFile();
 
         Bombe bombe = new Bombe("possibleAnswers.txt");
         bombe.challenge1();
+        bombe.challenge2();
+        bombe.challenge3();
 
     }
 
     public static void start(){
 
-        //test1();
-        //System.out.println();
-        //test2();
+        test1();
+        test2();
 
     }
 
     public static void test1(){
         /* TEST 1 */
+
+        /* Create the enigma machine according to spec */
         EnigmaMachine machine = new EnigmaMachine();
         machine.addPlug('A', 'M');
         machine.addPlug('G', 'L');
@@ -45,6 +47,7 @@ public class Main {
         reflector.initialise("ReflectorI");
         machine.addReflector(reflector);
 
+        /* Decode message given in spec */
         String word = "GFWIQH";
         for (char c : word.toCharArray()){
             machine.encodeLetter(c);
@@ -53,6 +56,8 @@ public class Main {
 
     public static void test2(){
         /* TEST 2 */
+
+        /* Create the enigma machine according to spec */
         EnigmaMachine machine = new EnigmaMachine();
         machine.addPlug('B', 'C');
         machine.addPlug('R', 'I');
@@ -75,6 +80,7 @@ public class Main {
         reflector.initialise("ReflectorII");
         machine.addReflector(reflector);
 
+        /* Decode message given in spec */
         String word = "GACIG";
         for (char c : word.toCharArray()){
             machine.encodeLetter(c);
