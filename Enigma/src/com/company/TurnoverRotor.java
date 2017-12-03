@@ -1,10 +1,14 @@
 package com.company;
 
+import javax.print.DocFlavor;
+
 public class TurnoverRotor extends BasicRotor {
     private int turnoverPosition;
     private BasicRotor nextRotor;
+    private String type;
     public TurnoverRotor(String type) {
         super(type);
+        this.type = type;
         super.initialise(type);
     }
 
@@ -41,5 +45,11 @@ public class TurnoverRotor extends BasicRotor {
                 nextRotor.rotate();
             }
         }
+    }
+
+    /* Extension to provide functionality to the CommandLineInterface */
+    @Override
+    public String toString(){
+        return String.format("\t\tTurnoverRotor %s, position %d", this.type, this.position);
     }
 }

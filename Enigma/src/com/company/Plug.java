@@ -42,4 +42,10 @@ public class Plug {
             return false;
         }
     }
+
+    /* Extension to provide functionality to the CommandLineInterface */
+    @Override
+    public String toString(){
+        return String.format("[%s-%s]", this.end1, this.end2);
+    }
 }

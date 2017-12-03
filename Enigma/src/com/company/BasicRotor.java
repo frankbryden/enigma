@@ -1,12 +1,15 @@
 package com.company;
 
 public class BasicRotor extends Rotor {
+    private String type;
     public BasicRotor(String type){
         initialise(type);
+        this.type = type;
     }
 
     @Override
     public void initialise(String type){
+
         switch (type){
             case "I":
                 mapping = new int[] { 4, 10, 12, 5, 11, 6, 3, 16, 21, 25, 13, 19, 14, 22, 24, 7, 23, 20, 18, 15, 0, 8, 1, 17, 2, 9 };
@@ -37,6 +40,9 @@ public class BasicRotor extends Rotor {
             index += ROTORSIZE;
         }
 
+        if (mapping == null){
+            System.err.println("MAPPING IS NULL!!");
+        }
         /* Use the new index to get mapping */
         int mapped_char = mapping[index];
 
@@ -62,5 +68,11 @@ public class BasicRotor extends Rotor {
 
     public void rotate(){
         position = (position + 1) % ROTORSIZE;
+    }
+
+    /* Extension to provide functionality to the CommandLineInterface */
+    @Override
+    public String toString(){
+        return String.format("BasicRotor %s, position %d", this.type, this.position);
     }
 }

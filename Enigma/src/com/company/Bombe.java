@@ -1,6 +1,5 @@
 package com.company;
 
-import javax.print.DocFlavor;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -26,7 +25,7 @@ public class Bombe {
     public Boolean tryWord(String word){
         StringBuilder builder = new StringBuilder();
         for (char letter : word.toCharArray()){
-            builder.append(enigmaMachine.encodeLetter(letter));
+            builder.append(enigmaMachine.encodeLetterWithReturn(letter));
         }
         return builder.toString().contains(wordHint);
     }
@@ -35,7 +34,7 @@ public class Bombe {
     public String encodeMessage(String message){
         StringBuilder builder = new StringBuilder();
         for (char letter : message.toCharArray()){
-            builder.append(enigmaMachine.encodeLetter(letter));
+            builder.append(enigmaMachine.encodeLetterWithReturn(letter));
         }
         return builder.toString();
     }
@@ -60,8 +59,7 @@ public class Bombe {
         enigmaMachine.addRotor(basicRotor3, 2);
 
         /* Add the reflector */
-        Reflector reflector = new Reflector();
-        reflector.initialise("ReflectorI");
+        Reflector reflector = new Reflector("ReflectorI");
         enigmaMachine.addReflector(reflector);
 
         encodedMessage = "JBZAQVEBRPEVPUOBXFLCPJQSYFJI";
@@ -110,8 +108,7 @@ public class Bombe {
         enigmaMachine.addRotor(basicRotor3, 2);
 
         /* Add the reflector */
-        Reflector reflector = new Reflector();
-        reflector.initialise("ReflectorI");
+        Reflector reflector = new Reflector("ReflectorI");
         enigmaMachine.addReflector(reflector);
 
         /* Data given to us by spec */
@@ -161,8 +158,8 @@ public class Bombe {
         rotorTypes.add("V");
 
          /* Add the reflector */
-        Reflector reflector = new Reflector();
-        reflector.initialise("ReflectorI");
+        Reflector reflector = new Reflector("ReflectorI");
+        reflector.initialise("");
         enigmaMachine.addReflector(reflector);
 
         /* Data given to us by spec */

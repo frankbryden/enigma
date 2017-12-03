@@ -3,23 +3,26 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
+
 	    start();
-        EnigmaFile ef = new EnigmaFile("first.txt");
-        ef.encode();
-        ef.writeToFile();
+
+
+
+
+    }
+
+    public static void start(){
+        test1();
+        test2();
+        test3();
 
         Bombe bombe = new Bombe("possibleAnswers.txt");
         bombe.challenge1();
         bombe.challenge2();
         bombe.challenge3();
 
-    }
-
-    public static void start(){
-
-        test1();
-        test2();
-
+        CommandLineInterface cli = new CommandLineInterface();
+        cli.start();
     }
 
     public static void test1(){
@@ -43,8 +46,7 @@ public class Main {
         basicRotor3.setPosition(5);
         machine.addRotor(basicRotor3, 2);
 
-        Reflector reflector = new Reflector();
-        reflector.initialise("ReflectorI");
+        Reflector reflector = new Reflector("ReflectorI");
         machine.addReflector(reflector);
 
         /* Decode message given in spec */
@@ -52,6 +54,7 @@ public class Main {
         for (char c : word.toCharArray()){
             machine.encodeLetter(c);
         }
+        System.out.println("\nFinished test 1");
     }
 
     public static void test2(){
@@ -76,8 +79,7 @@ public class Main {
         basicRotor3.setPosition(9);
         machine.addRotor(basicRotor3, 2);
 
-        Reflector reflector = new Reflector();
-        reflector.initialise("ReflectorII");
+        Reflector reflector = new Reflector("ReflectorII");
         machine.addReflector(reflector);
 
         /* Decode message given in spec */
@@ -85,5 +87,15 @@ public class Main {
         for (char c : word.toCharArray()){
             machine.encodeLetter(c);
         }
+        System.out.println("\nFinished test 2");
+    }
+
+    public static void test3(){
+        /* TEST 3 */
+
+        EnigmaFile ef = new EnigmaFile("test3.txt");
+        ef.encode();
+        ef.writeToFile();
+
     }
 }

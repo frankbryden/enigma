@@ -29,7 +29,7 @@ public class EnigmaFile {
         try {
             this.bufferedReader = new BufferedReader(new FileReader(enigmaFile));
         } catch (FileNotFoundException e) {
-            System.err.println("Failed to read file" + e.getMessage());
+            System.err.println("Failed to read file " + e.getMessage());
             System.exit(-1);
         }
 
@@ -81,8 +81,7 @@ public class EnigmaFile {
         turnoverRotor2.setNextRotor(turnoverRotor3);
 
         /* Add reflector */
-        Reflector reflector = new Reflector();
-        reflector.initialise("ReflectorI");
+        Reflector reflector = new Reflector("ReflectorI");
         enigmaMachine.addReflector(reflector);
 
     }
@@ -110,7 +109,6 @@ public class EnigmaFile {
         StringBuilder outputPathBuilder = new StringBuilder();
 
         /* Split inputPath to separate file name and extension */
-        Log.log("we have " + inputPath + "!");
         String[] parts = inputPath.split("\\.");
 
         /* Start off with file name */
@@ -129,7 +127,7 @@ public class EnigmaFile {
 
     public void encode(){
         for (char letter : enigmaFileContents.toCharArray()){
-            outputBuilder.append(enigmaMachine.encodeLetter(letter));
+            outputBuilder.append(enigmaMachine.encodeLetterWithReturn(letter));
         }
     }
 
@@ -143,5 +141,11 @@ public class EnigmaFile {
 
         /* Close the resource */
         printWriter.close();
+    }
+
+    /* Extension to provide functionality to the CommandLineInterface */
+    @Override
+    public String toString(){
+        return this.enigmaMachine.toString();
     }
 }

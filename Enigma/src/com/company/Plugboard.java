@@ -30,15 +30,25 @@ public class Plugboard {
         plugs.clear();
     }
 
-    public char substitute(char c){
+    public char substitute(char letter){
         for (Plug plug : plugs){
-            if (plug.encode(c) != c){
-                Log.log("Mapped " + c + " to " + plug.encode(c));
-                return plug.encode(c);
+            if (plug.encode(letter) != letter){
+                return plug.encode(letter);
             }
         }
-        Log.log("End not connected, character " + c + " not mapped.");
-        return c;
+        /* We need to have a return statement outside of for loop in case there are no plugs connected. In that case, simply return the letter passed as a parameter */
+        return letter;
+    }
+
+    /* Extension to provide functionality to the CommandLineInterface */
+    @Override
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+        for (Plug plug : plugs){
+            builder.append(plug.toString());
+            builder.append(" ");
+        }
+        return builder.toString();
     }
 
 }
