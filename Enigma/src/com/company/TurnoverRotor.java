@@ -1,11 +1,12 @@
 package com.company;
 
-import javax.print.DocFlavor;
-
 public class TurnoverRotor extends BasicRotor {
     private int turnoverPosition;
     private BasicRotor nextRotor;
+    /* The type field is used in the toString() method, which is itself used in the CLI extension */
     private String type;
+
+
     public TurnoverRotor(String type) {
         super(type);
         this.type = type;
@@ -18,6 +19,7 @@ public class TurnoverRotor extends BasicRotor {
 
     @Override
     public void initialise(String type){
+        /* Set turnover position according to type */
         switch(type){
             case "I":
                 turnoverPosition = 24;
@@ -39,8 +41,12 @@ public class TurnoverRotor extends BasicRotor {
 
     @Override
     public void rotate(){
+        /* Add 1 to the position, and wrap around if we get to ROTORSIZE */
         position = (position + 1) % ROTORSIZE;
+
+        /* if the current position corresponds to the turnover position, rotate the next rotor */
         if (position == turnoverPosition){
+            /* Make sure the next rotor is not null ! This will be the case for the rotor in slot 3 */
             if (nextRotor != null){
                 nextRotor.rotate();
             }

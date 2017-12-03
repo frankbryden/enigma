@@ -10,25 +10,10 @@ public class Bombe {
     private EnigmaMachine enigmaMachine;
     private String encodedMessage, wordHint;
     private File outputFile;
-    private PrintWriter printWriter;
-    public Bombe(String outputPath){
-        outputFile = new File(outputPath);
-        try {
-            printWriter = new PrintWriter(new FileWriter(outputFile));
-        } catch (IOException e) {
-            System.err.printf("Failed to open file (%s) for writing. Error : %s. Exiting.%n", outputFile.toString(), e.getMessage());
-            System.exit(-1);
-        }
+    public Bombe(){
+
     }
 
-    /* takes a string and encodes it, and tests to see if wordHint is in the encoded string */
-    public Boolean tryWord(String word){
-        StringBuilder builder = new StringBuilder();
-        for (char letter : word.toCharArray()){
-            builder.append(enigmaMachine.encodeLetterWithReturn(letter));
-        }
-        return builder.toString().contains(wordHint);
-    }
 
 
     public String encodeMessage(String message){
@@ -39,8 +24,9 @@ public class Bombe {
         return builder.toString();
     }
 
+
     /* For this challenge, we must find the ends for plugs connected to D and S */
-    public void challenge1(){
+    public void challenge1(String outputPath){
         enigmaMachine = new EnigmaMachine();
 
         /* Add first basic rotor */
@@ -64,6 +50,16 @@ public class Bombe {
 
         encodedMessage = "JBZAQVEBRPEVPUOBXFLCPJQSYFJI";
         wordHint = "ANSWER";
+
+        /* Set up file I/O */
+        PrintWriter printWriter = null;
+        outputFile = new File(outputPath);
+        try {
+            printWriter = new PrintWriter(new FileWriter(outputFile));
+        } catch (IOException e) {
+            System.err.printf("Failed to open file (%s) for writing. Error : %s. Exiting.%n", outputFile.toString(), e.getMessage());
+            System.exit(-1);
+        }
 
         /* We need to try every (x, y) pair of letters (where x and y are letters) as ends to the two plugs */
         for (int i = 0; i < 26; i++){
@@ -89,7 +85,7 @@ public class Bombe {
 
     }
 
-    public void challenge2(){
+    public void challenge2(String outputPath){
         enigmaMachine = new EnigmaMachine();
 
         enigmaMachine.addPlug('H', 'L');
@@ -114,6 +110,16 @@ public class Bombe {
         /* Data given to us by spec */
         encodedMessage = "AVPBLOGHFRLTFELQEZQINUAXHTJMXDWERTTCHLZTGBFUPORNHZSLGZMJNEINTBSTBPPQFPMLSVKPETWFD";
         wordHint = "ELECTRIC";
+
+        /* Set up file I/O */
+        PrintWriter printWriter = null;
+        outputFile = new File(outputPath);
+        try {
+            printWriter = new PrintWriter(new FileWriter(outputFile));
+        } catch (IOException e) {
+            System.err.printf("Failed to open file (%s) for writing. Error : %s. Exiting.%n", outputFile.toString(), e.getMessage());
+            System.exit(-1);
+        }
 
         /* We need to try every (x, y, z) triplet of possible initial positions for the rotors */
         for (int x = 0; x < basicRotor1.ROTORSIZE; x++){
@@ -144,7 +150,7 @@ public class Bombe {
         printWriter.close();
     }
 
-    public void challenge3(){
+    public void challenge3(String outputPath){
         enigmaMachine = new EnigmaMachine();
 
         enigmaMachine.addPlug('M', 'F');
@@ -165,6 +171,16 @@ public class Bombe {
         /* Data given to us by spec */
         encodedMessage = "WMTIOMNXDKUCQCGLNOIBUYLHSFQSVIWYQCLRAAKZNJBOYWW";
         wordHint = "JAVA";
+
+        /* Set up file I/O */
+        PrintWriter printWriter = null;
+        outputFile = new File(outputPath);
+        try {
+            printWriter = new PrintWriter(new FileWriter(outputFile));
+        } catch (IOException e) {
+            System.err.printf("Failed to open file (%s) for writing. Error : %s. Exiting.%n", outputFile.toString(), e.getMessage());
+            System.exit(-1);
+        }
 
         for (String type1 : rotorTypes){
             for (String type2 : rotorTypes){

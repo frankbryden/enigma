@@ -1,7 +1,11 @@
 package com.company;
 
 public class BasicRotor extends Rotor {
+
+    /* The type field is used in the toString() method, which is itself used in the CLI extension */
     private String type;
+
+
     public BasicRotor(String type){
         initialise(type);
         this.type = type;
@@ -33,8 +37,8 @@ public class BasicRotor extends Rotor {
 
     @Override
     public int substitute(int index){
-        //Add the position to the index
-        //Bring it back to a 0-25 range in case it overlaps
+        /* Add the position to the index */
+        /* Bring it back to a 0-25 range in case it overlaps */
         index -= position;
         if (index < 0){
             index += ROTORSIZE;

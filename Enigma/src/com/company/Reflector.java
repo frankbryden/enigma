@@ -1,7 +1,10 @@
 package com.company;
 
 public class Reflector extends Rotor {
+    /* The type field is used in the toString() method, which is itself used in the CLI extension */
     private String type;
+
+
     public Reflector(String type){
         super();
         this.initialise(type);

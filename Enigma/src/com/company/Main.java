@@ -5,22 +5,23 @@ public class Main {
     public static void main(String[] args) {
 
 	    start();
-
-
-
-
     }
 
     public static void start(){
+
+        /* PART 5 and 7 */
         test1();
         test2();
         test3();
 
-        Bombe bombe = new Bombe("possibleAnswers.txt");
-        bombe.challenge1();
-        bombe.challenge2();
-        bombe.challenge3();
+        /* PART 8 */
+        Bombe bombe = new Bombe();
+        bombe.challenge1("possibleAnswers1.txt");
+        bombe.challenge2("possibleAnswers2.txt");
+        bombe.challenge3("possibleAnswers3.txt");
 
+
+        /* Command Line Interface extension */
         CommandLineInterface cli = new CommandLineInterface();
         cli.start();
     }
