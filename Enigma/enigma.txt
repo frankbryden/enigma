@@ -2,6 +2,10 @@ Enigma Machine by Frank Bryden
 Email : fjkb1u17@soton.ac.uk
 Student number : 29544157
 
+In order to run and compile :
+	- All files are immediatly in the zip (no directories/subdirectories).
+	- Unzip, compile (javac *.java)
+	- And run from there (java Main)
 The main method is in the Main class.
 
 Test 3 uses the EnigmaFile class to read the input message and output the answer. As a result, I am submitting the file test3.txt which simply
@@ -34,3 +38,4 @@ In other words, the CLI asks for (in this order):
         -> initial position
     -> reflector
     -> raw message
+In order to stop the CLI from running, simply comment out "cli.start();" on line 24 of Main.java.
