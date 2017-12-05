@@ -1,0 +1,36 @@
+Enigma Machine by Frank Bryden
+Email : fjkb1u17@soton.ac.uk
+Student number : 29544157
+
+The main method is in the Main class.
+
+Test 3 uses the EnigmaFile class to read the input message and output the answer. As a result, I am submitting the file test3.txt which simply
+contains the encoded message given in the spec. This file is then read by the EnigmaFile class and the result is written to test3_encoded.txt (also included).
+
+I solved all 3 challenges using tailored methods for each challenge.
+The methods generate an output file with the possible answer(s).
+
+There was only one answer for challenges 1 and 2, but multiple for challenge 1. This was due to the fact that different combinations of plugs
+did not alter the hint word. As a result, the output of the bombe was multiple phrases all containing the word ANSWER.
+From there, I manually eliminate all the possibilities which contain "garbage". I end up with only one phrase, starting with DAISY DAISY.
+
+It turns out all the challenges were lyrics from songs.
+Challenge 1 : DAISY DAISY GIVE ME YOUR ANSWER DO    -> "Daisy Bell" composed by Harry Dacre in 1892
+Challenge 2 : WE'LL ALWAYS BE TOGETHER HOWEVER FAR IT SEEMS WE'LL ALWAYS BE TOGETHER TOGETHER IN ELECTRIC DREAMS -> "Electric Dreams" by The Human League
+Challenge 3 : I LOVE COFFEE I LOVE TEA I LOVE THE JAVA JIVE AND IT LOVES ME -> "Java Jive" by The Manhattan Transfer
+
+The extensions I have done are :
+    - sanitisation of the input from a file passed to the EnigmaFile class.
+    - command line interface
+
+I have added some methods to help with the extensions. All of these were carefully placed at the bottom of the classes, seperated from the
+rest of the code with the mention : /* Extension to provide functionality to the CommandLineInterface */
+
+The command line interface (CLI) asks the user for all of the properties needed to create an enigma machine in the same order as given in the spec.
+In other words, the CLI asks for (in this order):
+    -> plugs
+    -> rotors
+        -> type
+        -> initial position
+    -> reflector
+    -> raw message
